@@ -1,0 +1,8 @@
+fastprogress>=0.1.19
+requests
+matplotlib
+fire
+pickle
+torch>=1.0.0
+numpy>=1.15
+pandas
