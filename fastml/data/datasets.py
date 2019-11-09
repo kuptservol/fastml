@@ -87,5 +87,5 @@ class DataBunch():
     @property
     def valid_ds(self): return self.valid_dl.dataset
 
-def data_bunch(train_ds, valid_ds, batch_size):
-    return DataBunch(*get_data_loaders(train_ds,valid_ds, batch_size))
+def data_bunch(train_ds, valid_ds, batch_size, c=None):
+    return DataBunch(*get_data_loaders(train_ds,valid_ds, batch_size), c)

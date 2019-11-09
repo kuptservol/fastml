@@ -12,3 +12,6 @@ from torch import tensor
 import torch.nn.functional as F
 
 import math, matplotlib.pyplot as plt, numpy as np, pandas as pd, random
+from functools import partial
+
+from torch import nn

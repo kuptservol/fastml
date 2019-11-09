@@ -1,8 +1,5 @@
-from fastml.core import *
-from fastml.model import metrics as metrics
 from fastml.model.model import *
-from fastml.core.core import listify
-from fastml.examples import examples as examples
+from fastml.model.image.cnn import *
 
 class Callback():
     _order=0
@@ -129,3 +126,22 @@ class ParamScheduler(Callback):
 
     def begin_batch(self):
         if self.in_train: self.set_param()
+
+class CudaCall1back(Callback):
+    def begin_fit(self):
+        self.cuda_available = torch.cuda.is_available();
+        if self.cuda_available:
+            self.device = torch.device('cuda',0)
+            self.model.cuda()
+    def begin_batch(self):
+        if(self.cuda_available):
+            self.run.xb,self.run.yb = self.xb.cuda(self.device),self.yb.cuda(self.device)
+
+class BatchTransformXCallback(Callback):
+    _order=2
+    def __init__(self, tfm): self.tfm = tfm
+    def begin_batch(self): self.run.xb = self.tfm(self.xb)
+
+def view_tfm(*size):
+    def _inner(x): return x.view(*((-1,)+size))
+    return _inner

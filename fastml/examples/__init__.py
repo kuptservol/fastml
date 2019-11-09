@@ -1,4 +1,3 @@
-from fastml.model.init import *
-from fastml.model.loss import *
+from fastml.model import *
 from fastml.data import *
 from fastml.core import *
