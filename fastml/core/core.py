@@ -68,3 +68,7 @@ class ListContainer():
         res = f'{self.__class__.__name__} ({len(self)} items)\n{self.items[:10]}'
         if len(self)>10: res = res[:-1]+ '...]'
         return res
+
+def view_tfm(*size):
+    def _inner(x): return x.view(*((-1,)+size))
+    return _inner

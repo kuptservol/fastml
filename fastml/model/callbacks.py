@@ -141,7 +141,3 @@ class BatchTransformXCallback(Callback):
     _order=2
     def __init__(self, tfm): self.tfm = tfm
     def begin_batch(self): self.run.xb = self.tfm(self.xb)
-
-def view_tfm(*size):
-    def _inner(x): return x.view(*((-1,)+size))
-    return _inner
