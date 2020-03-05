@@ -1,9 +1,10 @@
-from fastml.data.datasets import *
-from fastml.model import loss as loss
-from fastml.model import optim as opt
-from fastml.model import metrics as metrics
-from torch import nn
 import torch.nn.functional as F
+from torch import nn
+
+from fastml.model import loss as loss
+from fastml.model import metrics as metrics
+from fastml.model import optimizers as opt
+from fastml.data.datasets import Datasets
 
 
 class Model(nn.Module):
@@ -15,7 +16,8 @@ class Model(nn.Module):
     def __call__(self, x): return self.l2(F.relu(self.l1(x)))
 
 
-x_train, y_train, x_valid, y_valid = DataSets.MNIST()
+train_ds, valid_ds = Datasets.MNIST()
+x_train, y_train = train_ds.x, train_ds.y
 
 lr = 0.5
 epochs = 5
@@ -40,7 +42,7 @@ def fit():
             optimizer.zero_grad()
 
         accuracy = metrics.accuracy(model(x_train), y_train)
-        print("epoch %s accuracy is %f3 loss is %f" % (epoch, accuracy.item() * 100, loss))
+        print("epoch %s accuracy is %f3 loss is %f" % (epoch, accuracy, loss))
 
 
 fit()

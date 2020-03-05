@@ -1,3 +1,5 @@
+import requests
+
 from fastml.core.imports import *
 
 def ifnone(a:Any,b:Any)->Any:
